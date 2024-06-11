@@ -5,8 +5,12 @@ function melt(T, melt_factor)
         return 0.0
     end
 end
-# try it out
-melt(1, 0.5)
+# test it
+@assert melt(0, 1) == 0
+@assert melt(-10, 1) == 0
+@assert melt(1, 1) == 1
+@assert melt(4, 7) == 4*7
+@assert melt(4, 0.01) == 4*0.01
 
 
 function accumulate(T, P, T_threshold)
@@ -16,14 +20,14 @@ function accumulate(T, P, T_threshold)
         return 0.0
     end
 end
-# try it out
-accumulate(0, 5, 0.5)
-accumulate(5, 5, 7)
+# test it
+@assert accumulate(0, 5, 4) > 0
+@assert accumulate(5, 5, 4) == 0
 
 
 function lapse(T, dz, lapse_rate)
     return T + dz * lapse_rate
 end
-# try it out
-lapse(5, 100, 1)
-lapse(5, -100, 1)
+# test it
+@assert lapse(5, 100, 1) > 5
+@assert lapse(5, -100, 1) < 5
