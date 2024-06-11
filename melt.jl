@@ -58,7 +58,8 @@ function net_balance_fn(dt, Ts, Ps, melt_factor, T_threshold)
    end
    return total
 end
-
+# try it
+net_balance_fn(1/24, [5, 6], [0.1, 1], 0.005, 4)
 
 
 """
@@ -92,3 +93,5 @@ function glacier_net_balance_fn(zs, dt, Ts, Ps, melt_factor, T_threshold, lapse_
    end
    return glacier_net_balance/length(zs), net_balance
 end
+# try it
+glacier_net_balance_fn(2400, 1/24, [5, 6], [0.1, 1], 0.005, 4, -0.6/100)
