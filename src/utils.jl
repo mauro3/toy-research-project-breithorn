@@ -42,3 +42,57 @@ function make_sha_filename(basename, ext)
 
     return string(now())[1:end-7] * "-" * basename * "-" * postfix * ext
 end
+
+"""
+    download_file(url, destination_file)
+
+Download a file, if it has not been downloaded already.
+
+For password protected access use the `~/.netrc` file to store passwords, see
+https://everything.curl.dev/usingcurl/netrc .
+
+For downloading files on the local file system prefix their path with `file://`
+as you would to see them in a browser.
+
+# Input
+- url -- url for download
+- destination_file -- path (directory + file) where to store it
+"""
+function download_file(url, destination_file)
+    # make sure the directory exists
+    mkpath(splitdir(destination_file)[1])
+
+    if isfile(destination_file)
+        # do nothing
+        println("Already downloaded $destination_file")
+    else
+        # download
+        print("Downloading $destination_file ... ")
+        Downloads.download(url, destination_file)
+        println("done.")
+    end
+    return
+end
+
+"""
+    unzip_one_file(zipfile, filename, destination_file)
+
+Unzip one file from a zip-archive.
+
+Inputs:
+- `zipfile`: path to zip-file
+- `filename`: name of file within the zip-archive to unzip, including any paths within the zipfile
+- 'destination_file`: path+file where to place the file
+"""
+function unzip_one_file(zipfile, filename, destination_file)
+    # make sure the directory exists
+    mkpath(splitdir(destination_file)[1])
+
+    r = ZipFile.Reader(zipfile)
+    for f in r.files
+        if f.name == filename
+            write(destination_file, read(f, String))
+        end
+    end
+    return nothing
+end
