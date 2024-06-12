@@ -1,4 +1,5 @@
 [deps]
+ASCIIrasters = "81770e7c-c736-4fa5-8129-46dd21831640"
 Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 JLSO = "9da8a3cd-07a3-59c0-a743-3fdc52c30d11"
 LibGit2 = "76f85450-5226-5b5a-8eaa-529ad045b433"

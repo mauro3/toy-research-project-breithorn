@@ -43,3 +43,7 @@ result = run_cache(expensive_computation, (3,4), "cache/expensive_computation_re
 @test result == expensive_computation(3,4)
 result = run_cache(expensive_computation, (5, 5), "cache/expensive_computation_result")
 @test result != expensive_computation(5, 5) # caching does not take args into account
+
+# campbell file reader
+@test parse_campbell_date_time(2007, 1, 1239) ≈ 0.5270833333333333
+@test parse_campbell_date_time(2007, 365, 2359) ≈ 364.9993055555555
