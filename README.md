@@ -26,8 +26,9 @@ Data is located at https://raw.githubusercontent.com/mauro3/CORDS/master/data/wo
 ## Installation
 
 - Install Julia, preferably via [juliaup](https://github.com/JuliaLang/juliaup)
-- make a project folder
-- clone this repository in that folder
+- make a project folder, probably `toy-research-project-breithorn`
+- clone this repository in that folder and (re)name it `code/` (execute, e.g., `git clone https://github.com/mauro3/toy-research-project-breithorn.git code`)
+  - we write into its parent folder thus make sure to create the as a subfolder within `toy-research-project-breithorn`
 - `cd` into the repo-folder and `julia --project`
 - in the REPL hit `]` to enter package-mode, execute `instantiate`
 - exit package mode by hitting backspace
