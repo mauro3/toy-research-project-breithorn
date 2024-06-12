@@ -1,5 +1,5 @@
 include("../src/GlacierMassBalanceModel.jl")
-using Plots
+using Plots, DelimitedFiles
 
 ## Define the synthetic weather and glacier
 """
@@ -56,6 +56,8 @@ t = 0:dt:365
 
 ## Plot the synthetic weather
 plot(t, synthetic_T.(t), xlabel="time (d)", ylabel="T (C)")
+mkpath("results")
+savefig(joinpath("results/", make_sha_filename("synthetic_T", ".png")))
 
 ## Run the model for one year at a point
 ele = 1500
@@ -68,6 +70,7 @@ xs, zs = synthetic_glacier()
 Ts = synthetic_T.(t)
 glacier_net_balance, net_balance = glacier_net_balance_fn(zs, dt, Ts, Ps, melt_factor, T_threshold, lapse_rate)
 plot(xs, net_balance)
+savefig(joinpath("results/", make_sha_filename("synthetic_massbalance_field", ".png")))
 
 ## Generate output table
 # make a table of mass-balance for different temperature offsets and store it
@@ -77,3 +80,4 @@ for dT = -4:4
     glacier_net_balance_, _ = glacier_net_balance_fn(zs, dt, Ts_, Ps, melt_factor, T_threshold, lapse_rate)
     push!(out, [dT, glacier_net_balance_])
 end
+writedlm(joinpath("results/", make_sha_filename("deltaT_impact", ".csv")), out, ',')
