@@ -1,4 +1,4 @@
-include("melt.jl")
+include("../src/GlacierMassBalanceModel.jl")
 using Plots
 
 ## Define the synthetic weather and glacier
