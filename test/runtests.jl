@@ -23,5 +23,5 @@ include("../examples/simple.jl")
 @test glacier_net_balance ≈ -0.11096645178976892
 
 # utils.jl testing
-@test startswith(make_sha_filename("test", ".png"), "test-")
+@test startswith(make_sha_filename("test", ".png"), "$(string(now())[1:end-7])-test-")
 @test endswith(make_sha_filename("test", ".png"), ".png")

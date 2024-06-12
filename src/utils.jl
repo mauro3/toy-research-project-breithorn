@@ -1,5 +1,5 @@
 ## General utility functions
-using LibGit2
+using LibGit2, Dates
 
 function make_sha_filename(basename, ext)
     # Open the git-repository in the current directory
@@ -17,5 +17,5 @@ function make_sha_filename(basename, ext)
         postfix = short_hash
     end
 
-    return basename * "-" * postfix * ext
+    return string(now())[1:end-7] * "-" * basename * "-" * postfix * ext
 end
