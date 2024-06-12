@@ -81,3 +81,5 @@ function glacier_net_balance_fn(zs, dt, Ts, Ps, melt_factor, T_threshold, lapse_
 end
 # try it
 glacier_net_balance_fn(2400, 1/24, [5, 6], [0.1, 1], 0.005, 4, -0.6/100)
+
+include("utils.jl")
