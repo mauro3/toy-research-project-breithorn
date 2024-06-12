@@ -25,3 +25,21 @@ include("../examples/simple.jl")
 # utils.jl testing
 @test startswith(make_sha_filename("test", ".png"), "$(string(now())[1:end-7])-test-")
 @test endswith(make_sha_filename("test", ".png"), ".png")
+
+function expensive_computation(x, y)
+    #sleep(5)  # Simulates a long-running computation
+    return x + y
+end
+
+# Cache file base name
+mkpath("cache")
+
+# Run the function and cache its result
+rm("cache/expensive_computation_result.jlso", force=true)
+result = run_cache(expensive_computation, (3,4), "cache/expensive_computation_result")
+@test result == expensive_computation(3,4)
+# now with result cached
+result = run_cache(expensive_computation, (3,4), "cache/expensive_computation_result")
+@test result == expensive_computation(3,4)
+result = run_cache(expensive_computation, (5, 5), "cache/expensive_computation_result")
+@test result != expensive_computation(5, 5) # caching does not take args into account

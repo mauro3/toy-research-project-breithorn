@@ -1,5 +1,5 @@
 ## General utility functions
-using LibGit2, Dates
+using LibGit2, Dates, JLSO
 
 """
     make_sha_filename(basename, ext)
@@ -95,4 +95,51 @@ function unzip_one_file(zipfile, filename, destination_file)
         end
     end
     return nothing
+end
+
+"""
+    run_cache(fn, args, cache_file; force=false)
+
+Run a function or load its result from a cache file.  For long
+running functions, this allows to cache its results.
+
+NOTE: this assumes that you pass in the same args.  No checks regarding this are done.
+
+Parameters:
+- `fn`: The function to run if no cached result is available or if forced. The function should accept the elements of `args` as arguments.
+- `args`: A tuple of arguments to pass to the function `fn`.
+- `cache_file`: A string specifying the base path and filename (without file extension) for the cache file to store the function result.
+- `force` (optional keyword argument): A boolean flag indicating whether to force re-run the function even if a cache file exists. Default is `false`.
+
+Returns:
+- The output of the function `fn`, either loaded from the cache file or computed by running the function.
+
+Example usage:
+```julia
+function expensive_computation(x, y)
+    sleep(5)  # Simulates a long-running computation
+    return x + y
+end
+
+# Arguments for the function
+args = (3, 4)
+
+# Cache file base name
+cache_file = "cache/expensive_computation_result"
+
+# Run the function and cache its result
+result = run_cache(expensive_computation, args, cache_file)
+
+println("Result: ", result)
+```
+"""
+function run_cache(fn, args, cache_file; force=false)
+    out = if !isfile(cache_file*".jlso") || force
+        out = fn(args...)
+        JLSO.save(cache_file*".jlso", :out => out)
+        out
+    else
+        JLSO.load(cache_file*".jlso")[:out]
+    end
+    return out
 end
