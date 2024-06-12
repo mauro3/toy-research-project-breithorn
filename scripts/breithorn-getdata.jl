@@ -1,8 +1,3 @@
-# Load packages
-using Plots
-# Load model code
-include("../src/GlacierMassBalanceModel.jl")
-
 # This script prepares data for Breithorngletscher near Zermatt, Switzerland
 results_dir = joinpath(@__DIR__, "../../results") # will be used later for storing outputs
 

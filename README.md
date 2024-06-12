@@ -33,3 +33,4 @@ Data is located at https://raw.githubusercontent.com/mauro3/CORDS/master/data/wo
 - in the REPL hit `]` to enter package-mode, execute `instantiate`
 - exit package mode by hitting backspace
 - try running the tests by executing `include("test/runtests.jl")`
+- to run the model `cd scripts`, start `julia --project`, execute `include("scripts/breithorn-main.jl")`

@@ -1,5 +1,3 @@
-using ASCIIrasters
-
 ## Read data
 t, Ts = read_campbell(weather_fl)
 dem,_ = ASCIIrasters.read_ascii(dem_fl)
