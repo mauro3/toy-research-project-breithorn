@@ -1,5 +1,6 @@
 ## General utility functions
-using LibGit2, Dates, JLSO
+using LibGit2, Dates, Downloads
+using JLSO, ZipFile
 
 """
     make_sha_filename(basename, ext)
